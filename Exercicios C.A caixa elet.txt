@@ -1,0 +1,130 @@
+public static void main(String[] args) {
+double cpf = 1234567890; 
+double entcpf;//entrada do usuário
+
+Scanner ler = new Scanner(System.in);
+
+System.out.println("Bem vindo!!!");
+System.out.println("Digite seu CPF (sem pontos, traço e ultimos 2 digitos)");
+entcpf = ler.nextDouble();//entrada do usuário
+
+if(entcpf == cpf){ //se a entrada digitada pelo usuário e o cpf for correto
+System.out.println("Acesso permitido"); //autorizar o acesso
+}
+else{ //caso cpf incorreto entrar em loop até que o usuario digite o correto
+System.out.println("Acesso não permitido");
+for(int i = 0; entcpf > cpf || entcpf < cpf; i++){
+    System.out.println("Digite seu CPF (sem pontos, traço e ultimos 2 digitos)");
+    entcpf = ler.nextDouble();
+    if(entcpf == cpf){  //se a entrada for correta, dar break no for
+        System.out.println("Acesso permitido");
+        break;
+    }
+    else{//caso o cpf continue incorreto, adicionar 1 a i e rodar o loop novamente
+        i ++;
+        System.out.println("Digite seu CPF (sem pontos, traço e ultimos 2 digitos)");
+        entcpf = ler.nextDouble();
+    }
+
+}
+}
+double senha = 1020304; 
+System.out.println("Digite sua senha");
+double entsenha = ler.nextDouble(); //entrada do usuário
+
+if(entsenha == senha){  //se a senha digitada pelo usuário for correta
+    System.out.println("Acesso permitido");//autorizar o acesso
+}
+else{   //caso contrario entrar em loop, com 2 tentativas
+for(int tentsenha = 2; entsenha > senha || entsenha < senha; tentsenha--){
+    if(tentsenha == 0){ //se as tentativas excederem, bloquear o sistema
+        System.out.println("Tentativas excedidas, conta bloqueada");
+        System.exit(0);
+        break;
+    }
+    System.out.println("Digite novamente, restam " + tentsenha + " tentativas");
+    entsenha = ler.nextDouble();
+    if(entsenha == senha){ //caso a senha for correta, quebrar o laço for
+        break;
+    }
+    else{//caso contrario, subtrair das tentativas restantes
+        tentsenha --;
+        System.out.println("Digite novamente, restam " + tentsenha + " tentativas");
+        entsenha = ler.nextDouble();
+        if(entsenha == senha){
+        break;
+    }
+    }
+}
+}
+
+int opmenu; 
+double saldo = 1000;    //saldo primordial
+Scanner ler2 = new Scanner(System.in);
+System.out.println("Digite quantas operações deseja fazer");
+double op = ler2.nextDouble();       //numero de operações desejadas
+
+
+for(double op1 = 0; op1 < op; op1++){//loop para quantia de operações desejadas
+System.out.println(" ____________________________________");
+System.out.println("|                                    |");
+System.out.println("|~~~~~~~~~~~~~~ Menu ~~~~~~~~~~~~~~~~|");
+System.out.println("|____________________________________|");
+System.out.println("|                                    |");
+System.out.println("|              1. Saldo              |");
+System.out.println("|              2. Depósito           |");
+System.out.println("|              3. Saque              |");
+System.out.println("|              0. Sair               |");
+System.out.println("|____________________________________|");
+
+opmenu = ler2.nextInt();
+switch(opmenu){
+    case 1:		//Saldo
+        System.out.println("Saldo atual R$: " + saldo);	
+        break;
+
+    case 2:		//Depósito
+        System.out.println("Digite o valor do depósito");
+	double deposito = ler2.nextDouble();
+        double novosaldo1 = deposito + saldo;
+        System.out.println("Saldo = R$" + novosaldo1);
+        saldo = novosaldo1;
+        break;
+
+    case 3:		//Saque
+        System.out.println("Saque somente abaixo ou igual o valor do saldo."
+                + "Saldo = R$:" + saldo); 
+        double saque1 = ler2.nextDouble();  //variavel do saque
+        if(saque1 <= saldo){//se o saque for menor que o saldo, exibir saldo atualizado
+            double novosaldo2 = saldo - saque1;//saldo após o saque
+            saldo = novosaldo2; //atualização do saldo primordial
+            System.out.println("Saldo atual: R$" + saldo);
+        }
+        else{
+        //se o saque for superior ao saldo, entrar em loop até que o saque 
+        //seja inferior ao saldo
+        for(double saque2 = saque1; saque2 > saldo; saque2++){
+            System.out.println("Saldo insuficiente, digite outro valor");
+            saque2 = ler2.nextDouble();
+            
+            if(saque2 <= saldo){
+            saque1 = saque2; //atualizar as variaveis de saldo
+            double novosaldo3 = saldo - saque1; //saldo atualizado
+            saldo = novosaldo3;//atualização do saldo primordial
+            System.out.println("Saldo: R$:" + saldo);
+            break;//caso o saque seja inferior al saldo ele interrompe o for
+            }
+            }
+        }
+        break;
+
+    case 0:		//Sair
+        
+        break;
+
+    default:
+        System.out.println("Opção não reconhecida, Digite novamente");
+        
+}
+} 
+}
